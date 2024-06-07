@@ -1,11 +1,6 @@
 # Polygon ENS (Ethereum Name Service)
 
-This project is a decentralized application (dApp) that allows users to register and manage unique names associated with Ethereum addresses on the Polygon network. This naming service uses Solidity for the backend smart contracts and React for the frontend interface.
-
-### Features
-
-- **Name Registration:** Users can register unique names tied to their Ethereum addresses on the Polygon network.
-- **Frontend Interface:** Built with React to interact with the Solidity smart contracts.
+This project aims to create a decentralized application (dApp) for Domain Naming Service (DNS) on the Polygon network, allowing users to register and manage unique domain names tied to their Ethereum addresses. By leveraging Solidity smart contracts for backend logic and React for the frontend user interface, this service provides a seamless and secure platform for domain name registration and management.
 
 ## Installation
 
