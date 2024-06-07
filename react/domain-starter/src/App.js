@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './styles/App.css';
-import twitterLogo from './assets/twitter-logo.svg';
+import githubLogo from './assets/github_logo.svg';
 import { ethers } from "ethers";
 import contractABI from './utils/contractABI.json';
 import polygonLogo from './assets/polygonlogo.png';
 import ethLogo from './assets/ethlogo.png';
-import { networks } from './utils/networks';
+import { networks } from './utils/networks.js';
 
-// Constants
-const TWITTER_HANDLE = '_buildspace';
-const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 // Add the domain you will be minting
-const tld = '.ninja';
+const tld = '.cryptoConnect';
 const CONTRACT_ADDRESS = '0x6bFF6aFf8347Ec046458273ED10E2b098022DFaE';
 
 const App = () => {
@@ -115,14 +112,36 @@ const App = () => {
 
 	};
 
+	const withdrawFunds = async () => {
+		try {
+			const { ethereum } = window;
+			if (ethereum) {
+				const provider = new ethers.providers.Web3Provider(ethereum);
+				const signer = provider.getSigner();
+				const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI.abi, signer);
+				const tx = await contract.withdraw();
+				await tx.wait();
+				console.log("Funds withdrawn successfully!");
+			}
+		} catch (error) {
+			console.error("Error withdrawing funds:", error);
+		}
+	};
+	
+
 	const mintDomain = async () => {
 		// Don't run if the domain is empty
 		if (!domain) { return }
 		// Alert the user if the domain is too short
 		if (domain.length < 3) {
-		  alert('Domain must be at least 3 characters long');
-		  return;
+			alert('Domain must be at least 3 characters long');
+			return;
 		}
+		if (domain.length > 10) {
+			alert('Domain must be less than 10 characters long');
+			return;
+		}
+		
 		// Calculate price based on length of domain (change this to match your contract)	
 		// 3 chars = 0.5 MATIC, 4 chars = 0.3 MATIC, 5 or more = 0.1 MATIC
 		const price = domain.length === 3 ? '0.5' : domain.length === 4 ? '0.3' : '0.1';
@@ -232,8 +251,7 @@ const App = () => {
 	// Render methods
 	const renderNotConnectedContainer = () => (
 		<div className="connect-wallet-container">
-			<img src="https://media.giphy.com/media/3ohhwytHcusSCXXOUg/giphy.gif" alt="Ninja donut gif" />
-			{/* Call the connectWallet function we just wrote when the button is clicked */}
+			<img src="https://media.giphy.com/media/DcI89rFtYnkBLiP3uW/giphy.gif" alt="gif" />
 			<button onClick={connectWallet} className="cta-button connect-wallet-button">
 				Connect Wallet
 			</button>
@@ -303,7 +321,7 @@ const App = () => {
 				<input
 					type="text"
 					value={record}
-					placeholder='whats ur ninja power?'
+					placeholder='tell me about yourself'
 					onChange={e => setRecord(e.target.value)}
 				/>
 				{/* If the editing variable is true, return the "Set record" and "Cancel" button */}
@@ -338,7 +356,7 @@ const App = () => {
 				<div className="header-container">
 					<header>
 						<div className="left">
-							<p className="title">🐱‍👤 Ninja Name Service</p>
+							<p className="title">CryptoConnect Naming Service</p>
 							<p className="subtitle">Your immortal API on the blockchain!</p>
 						</div>
 						{/* Display a logo and wallet connection status*/}
@@ -354,13 +372,13 @@ const App = () => {
 				{mints && renderMints()}
 
 				<div className="footer-container">
-					<img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
+					<img alt="Github Logo" className="github-logo" src={githubLogo} />
 					<a
 						className="footer-text"
-						href={TWITTER_LINK}
+						href={'https://github.com/n-avanthi'}
 						target="_blank"
 						rel="noreferrer"
-					>{`built with @${TWITTER_HANDLE}`}</a>
+					>{`@n-avanthi`}</a>
 				</div>
 			</div>
 		</div>
