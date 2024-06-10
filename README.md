@@ -7,20 +7,43 @@ This project aims to create a decentralized application (dApp) for Domain Naming
 - Node.js & npm
 - Metamask extension or any Ethereum-enabled browser
 
-## Backend (Solidity)
-1. Navigate to the `solidity` directory.
-2. Install dependencies with `npm install`.
-3. Update WALLET_PRIVATE_KEY in the `.env` file.
-4. Compile the Solidity contracts using a Solidity compiler like `solc`.
+## Installation
+
+ 1. Clone this repository to your local machine:
+   
    ```bash
-   npx hardhat compile
-5. Deploy the contracts to the Polygon Mumbai testnet using Hardhat
+   git clone https://github.com/n-avanthi/Naming-Service.git
+   ```
+2. Install the required dependancies:
+- For frontend -
+    ``` bash
+    cd react
+    npm install
+    ```
+- For backend -
+    ``` bash
+    cd solidity
+    npm install
+    ```
+
+### Backend (Solidity)
+1. Update WALLET_PRIVATE_KEY in the `.env` file
+   ```bash
+    WALLET_PRIVATE_KEY="Your-Wallet-Private-Key"
+    ```
+3. Compile the Solidity contracts
+   ```bash
+    npx hardhat compile
+    ```
+4. Deploy the contracts to the Polygon Mumbai testnet using Hardhat
     ```bash
     npx hardhat run scripts/deploy.js --network mumbai
-## Frontend (React) 
-1. Navigate to the `React` directory.
-2. Install dependencies with `npm install`.
-3. Start the development server.
+    ```
+### Frontend (React) 
+1. Start the development server
+   ```bash
+   npm start
+   ```
 
 ## Deploying to Mainnet
 To deploy the contracts to the Polygon mainnet, modify the deployment script to target the mainnet in scripts/deploy.js, and execute the deployment command again.
